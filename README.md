@@ -91,24 +91,24 @@ src
 ├── _shared
 ├── domain
 │   ├── entities
-│   │   └── user.entity.ts
+│   │   └── foo.entity.ts
 │   ├── services
-│   │   └── user.service.ts
+│   │   └── foo.service.ts
 │   ├── ports
-│   │   └── user-external-service.port.ts
+│   │   └── foo-external-service.port.ts
 │   └── exceptions
-│       └── user-not-found.exception.ts
+│       └── foo-not-found.exception.ts
 ├── application
 │   ├── use-cases
-│   │   └── create-user.use-case.ts
+│   │   └── foo.use-case.ts
 │   └── dto
-│       └── create-user.dto.ts
+│       └── foo.dto.ts
 ├── infrastructure
 │   ├── adapters
-│   │   └── external-apis
-│   │       └── user-api.adapter.ts
+│   │   └── external-clients
+│   │       └── foo-client.adapter.ts
 │   ├── controllers
-│   │   └── user.controller.ts
+│   │   └── foo.controller.ts
 │   └── config
 │       └── external-service.config.ts
 └── main.ts
