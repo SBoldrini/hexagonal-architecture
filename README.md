@@ -7,24 +7,43 @@
 
   <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
     <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project demonstrates the implementation of Hexagonal Architecture (also known as Ports and Adapters pattern) using NestJS framework. The architecture separates the application into distinct layers with clear boundaries and dependencies pointing inward.
+
+### Hexagonal Architecture Overview
+
+The project follows these key principles:
+
+- **Domain Layer** (Core): Contains the business logic, entities, and business rules. It has no dependencies on external frameworks or infrastructure.
+
+- **Application Layer**: Houses the use cases/application services that orchestrate the flow of data and coordinate the domain layer. It depends only on the domain layer.
+
+- **Infrastructure Layer**: Contains all external concerns like controllers, database adapters, external service clients, etc. This layer implements the interfaces (ports) defined by the inner layers.
+
+### Key Components
+
+1. **Ports**: Interfaces that define how the application interacts with external systems
+   - Input/Primary Ports: Used by external systems to interact with our application
+   - Output/Secondary Ports: Used by our application to interact with external systems
+
+2. **Adapters**: Concrete implementations of the ports
+   - Primary Adapters: Controllers, API endpoints
+   - Secondary Adapters: Database repositories, external service clients
+
+3. **Use Cases**: Application-specific business rules that orchestrate the flow between ports and domain
+
+### Benefits
+
+- Clear separation of concerns
+- Business logic isolation from external dependencies
+- Easier testing through dependency inversion
+- Flexible and maintainable codebase
+- Swappable infrastructure components
+
+The project structure reflects this architecture with dedicated folders for each layer, making it easy to navigate and maintain the codebase while ensuring architectural boundaries are respected.
+
 
 ## Project setup
 
@@ -59,27 +78,42 @@ $ npm run test:cov
 ```
 
 ## Resources
+- [Hexagonal Architecture (Ports and Adapters)](https://alistair.cockburn.us/hexagonal-architecture/) - Original article by Alistair Cockburn
+- [NestJS Documentation](https://docs.nestjs.com/) - Framework documentation
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/) - Language documentation
+- [Jest Testing Framework](https://jestjs.io/docs/getting-started) - Testing framework used in the project
+- [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) - Related architectural pattern by Robert C. Martin
 
-Check out a few resources that may come in handy when working with NestJS:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## Project structure
+
+src
+├── _shared
+├── domain
+│   ├── entities
+│   │   └── user.entity.ts
+│   ├── services
+│   │   └── user.service.ts
+│   ├── ports
+│   │   └── user-external-service.port.ts
+│   └── exceptions
+│       └── user-not-found.exception.ts
+├── application
+│   ├── use-cases
+│   │   └── create-user.use-case.ts
+│   └── dto
+│       └── create-user.dto.ts
+├── infrastructure
+│   ├── adapters
+│   │   └── external-apis
+│   │       └── user-api.adapter.ts
+│   ├── controllers
+│   │   └── user.controller.ts
+│   └── config
+│       └── external-service.config.ts
+└── main.ts
+
+
 
 ## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
