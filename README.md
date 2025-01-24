@@ -86,7 +86,7 @@ $ npm run test:cov
 
 
 ## Project structure
-
+```
 src
 ├── _shared
 ├── domain
@@ -112,8 +112,5 @@ src
 │   └── config
 │       └── external-service.config.ts
 └── main.ts
-
-
-
-## Support
+```
 
